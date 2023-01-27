@@ -26,6 +26,34 @@ class SimpleCalculator extends StatefulWidget {
 }
 
 class _SimpleCalculatorState extends State<SimpleCalculator> {
+  Widget buildButton(
+      String buttonText, double buttonHeight, Color buttonColor) {
+    return Container(
+      height: MediaQuery.of(context).size.height * 0.1 * buttonHeight,
+      color: buttonColor,
+      child: TextButton(
+        onPressed: () {},
+        style: ButtonStyle(
+          shape: MaterialStateProperty.all(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(0.0),
+              side: const BorderSide(
+                  color: Colors.white, width: 1, style: BorderStyle.solid),
+            ),
+          ),
+        ),
+        child: Text(
+          buttonText,
+          style: const TextStyle(
+            fontSize: 30.0,
+            fontWeight: FontWeight.normal,
+            color: Colors.white,
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,40 +82,72 @@ class _SimpleCalculatorState extends State<SimpleCalculator> {
             child: Divider(),
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.75,
                 child: Table(
                   children: [
                     TableRow(
                       children: [
-                        Container(
-                          height: MediaQuery.of(context).size.height * 0.1,
-                          color: Colors.redAccent,
-                          child: TextButton(
-                            onPressed: () {},
-                            style: ButtonStyle(
-                              shape: MaterialStateProperty.all(
-                                RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(0.0),
-                                  side: const BorderSide(
-                                      color: Colors.white,
-                                      width: 1,
-                                      style: BorderStyle.solid),
-                                ),
-                              ),
-                            ),
-                            child: const Text(
-                              'C',
-                              style: TextStyle(
-                                fontSize: 30.0,
-                                fontWeight: FontWeight.normal,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ),
+                        buildButton("C", 1, Colors.redAccent),
+                        buildButton("⌫", 1, Colors.blue),
+                        buildButton("÷", 1, Colors.blue),
+                      ],
+                    ),
+                    TableRow(
+                      children: [
+                        buildButton("9", 1, Colors.black54),
+                        buildButton("8", 1, Colors.black54),
+                        buildButton("7", 1, Colors.black54),
+                      ],
+                    ),
+                    TableRow(
+                      children: [
+                        buildButton("6", 1, Colors.black54),
+                        buildButton("5", 1, Colors.black54),
+                        buildButton("4", 1, Colors.black54),
+                      ],
+                    ),
+                    TableRow(
+                      children: [
+                        buildButton("3", 1, Colors.black54),
+                        buildButton("2", 1, Colors.black54),
+                        buildButton("1", 1, Colors.black54),
+                      ],
+                    ),
+                    TableRow(
+                      children: [
+                        buildButton(".", 1, Colors.black54),
+                        buildButton("0", 1, Colors.black54),
+                        buildButton("00", 1, Colors.black54),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.25,
+                child: Table(
+                  children: [
+                    TableRow(
+                      children: [
+                        buildButton("×", 1, Colors.blue),
+                      ],
+                    ),
+                    TableRow(
+                      children: [
+                        buildButton("-", 1, Colors.blue),
+                      ],
+                    ),
+                    TableRow(
+                      children: [
+                        buildButton("+", 1, Colors.blue),
+                      ],
+                    ),
+                    TableRow(
+                      children: [
+                        buildButton("=", 2, Colors.redAccent),
                       ],
                     ),
                   ],
