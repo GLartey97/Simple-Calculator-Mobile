@@ -26,13 +26,46 @@ class SimpleCalculator extends StatefulWidget {
 }
 
 class _SimpleCalculatorState extends State<SimpleCalculator> {
+  String equation = "0";
+  String result = "0";
+  String expression = "";
+  double equationFontSize = 38.0;
+  double resultFontSize = 48.0;
+
+  buttonPressed(String buttonText) {
+    setState(() {
+      if (buttonText == "C") {
+        equation = "0";
+        result = "0";
+        equationFontSize = 38.0;
+        resultFontSize = 48.0;
+      } else if (buttonText == "⌫") {
+        equationFontSize = 48.0;
+        resultFontSize = 38.0;
+        equation = equation.substring(0, equation.length - 1);
+        if (equation == "") {
+          equation = "0";
+        }
+      } else if (buttonText == "=") {
+        equationFontSize = 38.0;
+        resultFontSize = 48.0;
+      } else {
+        if (equation == "0") {
+          equation = buttonText;
+        } else {
+          equation = equation + buttonText;
+        }
+      }
+    });
+  }
+
   Widget buildButton(
       String buttonText, double buttonHeight, Color buttonColor) {
     return Container(
       height: MediaQuery.of(context).size.height * 0.1 * buttonHeight,
       color: buttonColor,
       child: TextButton(
-        onPressed: () {},
+        onPressed: () => buttonPressed(buttonText),
         style: ButtonStyle(
           shape: MaterialStateProperty.all(
             RoundedRectangleBorder(
@@ -65,17 +98,17 @@ class _SimpleCalculatorState extends State<SimpleCalculator> {
           Container(
             alignment: Alignment.centerRight,
             padding: const EdgeInsets.fromLTRB(10, 20, 10, 0),
-            child: const Text(
-              '0',
-              style: TextStyle(fontSize: 38.0),
+            child: Text(
+              equation,
+              style: TextStyle(fontSize: equationFontSize),
             ),
           ),
           Container(
             alignment: Alignment.centerRight,
             padding: const EdgeInsets.fromLTRB(10, 30, 10, 0),
-            child: const Text(
-              '0',
-              style: TextStyle(fontSize: 48.0),
+            child: Text(
+              result,
+              style: TextStyle(fontSize: resultFontSize),
             ),
           ),
           const Expanded(
